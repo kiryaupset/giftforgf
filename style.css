@@ -1,0 +1,143 @@
+:root {
+  color-scheme: light;
+  background: #f9d8e6;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  min-width: 280px;
+  background:
+    radial-gradient(ellipse at 50% 42%, #fff4f8 2%, #fde6ef 44%, transparent 76%),
+    repeating-linear-gradient(90deg, #ffffff30 0 24px, transparent 24px 48px),
+    #f9d8e6;
+}
+
+.card {
+  display: grid;
+  min-height: 100svh;
+  place-items: center;
+  padding: max(24px, env(safe-area-inset-top)) max(24px, env(safe-area-inset-right))
+    max(24px, env(safe-area-inset-bottom)) max(24px, env(safe-area-inset-left));
+}
+
+.story {
+  display: grid;
+  justify-items: center;
+  gap: clamp(10px, 2vh, 20px);
+  width: min(100%, 520px);
+}
+
+.scene {
+  position: relative;
+  width: min(80vw, 57svh, 430px);
+}
+
+.scene::before {
+  position: absolute;
+  inset: 11%;
+  border-radius: 50%;
+  background: #ff9bc466;
+  filter: blur(45px);
+  content: '';
+  pointer-events: none;
+  transition: transform 350ms ease, opacity 350ms ease;
+}
+
+.scene:has(.is-speaking)::before { transform: scale(1.27); opacity: .75; }
+
+.pusheen {
+  position: relative;
+  z-index: 1;
+  display: block;
+  width: 100%;
+  padding: 0;
+  border: 0;
+  border-radius: 42%;
+  background: transparent;
+  cursor: pointer;
+  touch-action: manipulation;
+  transition: transform 250ms ease;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.pusheen:focus-visible { outline: 3px solid #a6385c; outline-offset: 7px; }
+.pusheen:active { transform: scale(.95); }
+@media (hover: hover) { .pusheen:hover { transform: scale(1.035); } }
+
+.pusheen img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1;
+  object-fit: contain;
+  filter: drop-shadow(0 16px 24px #a6385c29);
+}
+
+.sparkle {
+  position: absolute;
+  z-index: 2;
+  color: #b94a73;
+  font: clamp(19px, 4vw, 34px)/1 Georgia, serif;
+  pointer-events: none;
+}
+
+.sparkle-top { top: 9%; right: 1%; transform: rotate(10deg); }
+.sparkle-bottom { bottom: 17%; left: 2%; transform: rotate(-13deg); }
+
+.dialog-slot { width: 100%; min-height: 104px; }
+
+.dialog {
+  position: relative;
+  min-height: 88px;
+  padding: 18px 36px 18px 22px;
+  border: 2px solid #e8a8bd;
+  border-radius: 20px;
+  background: #fff8f8;
+  box-shadow: 0 5px 0 #e8a8bd40, 0 13px 26px #9f3b5e14;
+  color: #573047;
+  font: 600 clamp(16px, 4vw, 20px)/1.5 Nunito, 'Segoe UI', sans-serif;
+}
+
+.dialog::before {
+  position: absolute;
+  top: -8px;
+  left: calc(50% - 7px);
+  width: 12px;
+  height: 12px;
+  transform: rotate(45deg);
+  border-top: 2px solid #e8a8bd;
+  border-left: 2px solid #e8a8bd;
+  background: inherit;
+  content: '';
+}
+
+.dialog p { margin: 0; overflow-wrap: anywhere; white-space: pre-wrap; }
+.next { position: absolute; right: 13px; bottom: 9px; color: #a6385c; line-height: 1; }
+.dialog.is-typing .next { visibility: hidden; }
+
+.screen-reader {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+@media (max-width: 600px) {
+  .card {
+    padding: max(16px, env(safe-area-inset-top)) max(16px, env(safe-area-inset-right))
+      max(16px, env(safe-area-inset-bottom)) max(16px, env(safe-area-inset-left));
+  }
+  .story { gap: 14px; }
+  .scene { width: min(78vw, 44svh, 330px); }
+  .dialog-slot { min-height: 15rem; }
+  .dialog { padding: 14px 16px 24px; font-size: 1.0625rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scene::before, .pusheen { transition: none; }
+}
